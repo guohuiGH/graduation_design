@@ -42,10 +42,13 @@ class ChangeData:
                         new_user[key] = str(len(self.mapping_key) + counter)
                         counter +=1
                         #continue
-                    person_info = value[:28]
-
+                    person_info = value[:34]
+                    person_info.extend(value[34].split(" "))
+                    person_info.extend(value[35].split(" "))
                     #调整数值范围,规范化，采用log,和*
+                    '''
                     for i in range(28,len(value)):
+
                         if 28 <= i < 31 or i == 33:
                             if value[i] != '0':
                                 temp = str(int(math.log(float(value[i])*100000)/math.log(2)))
@@ -54,6 +57,7 @@ class ChangeData:
                                 person_info.append(str(int(value[i])))
                         if 31 <= i < 33:
                             person_info.append(value[i])
+
                         if 34 <= i < 36:
                             #aver = value[i].split(" ")[0]
                             #vari = value[i].split(" ")[1]
@@ -65,7 +69,7 @@ class ChangeData:
                                         person_info.append(str(int(float(t))))
                                 except:
                                     print line
-
+                    '''
                     if key in self.mapping_key:
                         wf.write(self.mapping_key[key] + "\t" + "\t".join(person_info) + "\n")
                     if key in self.mapping_key:
@@ -76,7 +80,7 @@ class ChangeData:
 if __name__ == "__main__":
     changeData = ChangeData()
     changeData.getMapping()
-    #changeData.merge("train", "../data/train_weekly_feature_", "../data/train/train_weekly_feature_")
+    changeData.merge("train", "../data/train_weekly_feature_", "../data/train/train_weekly_feature_", "../data/train/train_new_user_feature")
     changeData.merge("test", "../data/test_weekly_feature_", "../data/test/test_weekly_feature_", "../data/test/test_new_user_feature_")
 
 
