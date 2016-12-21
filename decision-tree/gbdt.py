@@ -2,12 +2,15 @@
 # encoding: utf-8
 
 import sys
+import numpy as np
 sys.path.append("../script")
 from convert_input import Convert
 from validation import Validation
 
+from sklearn.preprocessing import OneHotEncoder
 from sklearn.ensemble import GradientBoostingRegressor, GradientBoostingClassifier
 from xgboost.sklearn import XGBClassifier
+
 
 class GBDT:
     def __init__(self):
@@ -45,10 +48,39 @@ class GBDT:
         elif tag == "oneHot":
             (self.x_train, self.y_train, self.x_test, self.y_test) = c.getDTOneHotData()
 
+    #拿到叶子节点值
+    def get_leaf(self):
+        self.get_data("oneHot")
+        n_estimators = 300
+        clf_xgb = XGBClassifier(max_depth=4, learning_rate=0.0125, n_estimators=300, subsample=0.6, colsample_bytree=0.7,seed=4)
+        clf_xgb.fit(self.x_train, self.y_train)
+
+        leafes_train = list(clf_xgb.apply(self.x_train))
+        leafes_test = list(clf_xgb.apply(self.x_test))
+
+        #补充最大值，最小值,将数据one-hot时统一
+        max_train = np.array(leafes_train).max()
+        min_train = np.array(leafes_train).min()
+
+        max_test = np.array(leafes_test).max()
+        min_test = np.array(leafes_test).min()
+        max_value = max(max_train, max_test)
+        min_value = min(min_train, min_test)
+        for i in range(min_value, max_value+1):
+            leafes_train.append([i]*n_estimators)
+
+        enc = OneHotEncoder()
+        enc.fit(leafes_train)
+        #去除补充的值
+        leafes_train_feature = enc.transform(leafes_train).toarray()[:-(max_value-min_value+1),:]
+        print leafes_train_feature.shape, len(leafes_train)
+        return leafes_train_feature, self.y_train, enc.transform(leafes_test).toarray(), self.y_test
+
 
 if __name__ == "__main__":
     g = GBDT()
-    g.get_data("oneHot")
-    g.XGBC()
-    g.GBC()
+    #g.get_data("oneHot")
+    g.get_leaf()
+    #g.XGBC()
+    #g.GBC()
 
