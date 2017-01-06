@@ -34,12 +34,12 @@ class LstmParam:
 
         # Parameters
         self.learning_rate = 0.01 # lstm learning rate
-        self.training_iters = 100  # iteation, or forest size
-        self.batch_size = 10000  # forest-net train number, input size
+        self.training_iters = 150  # iteation, or forest size
+        self.batch_size = 55000  # forest-net train number, input size
         self.display_step = 10   # show size
 
         # Network Parameters
-        self.n_input = 10 # feature number
+        self.n_input = 15 # feature number
         self.n_steps = 28 # timesteps
         self.n_hidden = 128 # hidden layer num of features
         self.n_classes = 10 # MNIST total classes (0-9 digits)
@@ -47,7 +47,7 @@ class LstmParam:
 
         #ForestNet Parameters
         self.f_learning_rate = 0.1 # forestnet learning rate
-        self.f_number = 10 # single forestnet size --> or self.n_input
+        self.f_number = 15 # single forestnet size --> or self.n_input
         self.f_steps = 28 # forestnet cluster size --> or self_n_steps
         self.f_input = 28 # input feature number
 
@@ -107,14 +107,16 @@ class LstmModel:
 #generate random input and forest data
 def generate_lstm_input(param,forest_net, redisual):
     #random data
-    #index = sorted(random.sample(range(len(param.x_train)), param.batch_size))
-    #batch_x = [param.x_train[i] for i in index]
-    #batch_y = [param.y_train.ix[i] for i in index]
+    #x_train = mnist.train.images; y_train = mnist.train.labels
+    #index = sorted(random.sample(range(len(x_train)), param.batch_size))
+    #batch_x = [x_train[i] for i in index]
+    #batch_y = [y_train[i] for i in index]
     #batch_x, batch_y = mnist.train.next_batch(param.batch_size)
     batch_x = mnist.train.images[:param.batch_size]
     batch_y = mnist.train.labels[:param.batch_size]
-    f_batch_x = forest_net.generate_forest(batch_x, redisual)
+    f_batch_x = forest_net.get_train_data(batch_x, redisual, mnist.test.images)
     return np.array(f_batch_x), np.array(batch_y)
+    pass
 
 
 #train data and predict
@@ -130,8 +132,10 @@ def train(param, model, forest_net):
             #generate train data---mini batch
             #using the forest net generate hidden data : n_steps * batch_size * n_input
             batch_x, batch_y = generate_lstm_input(param, forest_net, redisual)
-
-            batch_x = sess.run(tf.transpose(batch_x,[1,0,2]))
+            #batch_x = forest_net.get_train_data(mnist.train.images, redisual, mnist.test.images)
+            #batch_y = np.array(mnist.train.labels)
+            #batch_x = mnist.train.images.reshape((param.batch_size, 28,28))
+            batch_x = np.transpose(batch_x,[1,0,2])
             #batch_y = np.reshape(batch_y,(-1,param.n_classes))
 
             fd = {model.xx:batch_x, model.y:batch_y}
@@ -139,10 +143,11 @@ def train(param, model, forest_net):
             # Run optimization op (backprop)
             sess.run(model.optimizer, feed_dict=fd)
             #get the gradient or residual
-            grad_val = sess.run(tf.gradients(model.cost, model.xx), feed_dict=fd)[0]
 
-            redisual = -100000*np.array(sess.run(tf.transpose(grad_val,[1,0,2])))
+            grad_val = np.array(sess.run(tf.gradients(model.cost, model.xx), feed_dict=fd)[0])
 
+            redisual = -300000*np.transpose(grad_val,[1,0,2])
+            #print (redisual[0][0])
             if step % param.display_step == 0:
                 # Calculate batch accuracy
                 acc = sess.run(model.accuracy, feed_dict=fd)
@@ -152,15 +157,17 @@ def train(param, model, forest_net):
                       "{:.6f}".format(loss) + ", Training Accuracy= " + \
                       "{:.5f}".format(acc))
             step += 1
+            batch_x = list(); batch_y = list()
 
         print("Optimization Finished!")
 
 
         #test data
         test_len = 128
-        test_d = mnist.test.images[:test_len]
-        test_label = mnist.test.labels[:test_len]
-        test_data_temp = forest_net.forest_test_predict(test_d)
+        test_data = mnist.test.images#[:test_len]
+        test_label = mnist.test.labels#[:test_len]
+        #test_data_temp = forest_net.forest_test_predict(test_d)
+        test_data_temp = np.array(forest_net.get_test_data())
         test_data = sess.run(tf.transpose(test_data_temp,[1,0,2]))
         #test_label = np.reshape(test_label, (-1,2))
 
