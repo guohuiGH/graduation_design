@@ -4,8 +4,22 @@ import sys,math
 import numpy as np
 import pandas as pd
 from sklearn import tree
+from multiprocessing import Pool
+import pathos.multiprocessing as mp
+
+def out_process(i, x_temp, y_temp, x_test_temp):
+    y = np.array(y_temp)[:,i]
+    #用sklearn 工具 建立回归树
+    clf = tree.DecisionTreeRegressor(max_depth=3)
+    clf.fit(x_temp, y)
+    predict_train_value = clf.predict(x_temp)
+
+    predict_test_value = clf.predict(x_test_temp)
+    return predict_train_value, predict_test_value
+
+
 class ForestNet:
-    def __init__(self, x_num, forest_num, forest_learning_rate, cluster_size, feature_size, iteration):
+    def __init__(self, x_num, forest_num, forest_learning_rate, cluster_size, feature_size, iteration, thread_core=2):
 
         self.forest_num = forest_num
         #初始化forest的y森林层的值
@@ -27,6 +41,7 @@ class ForestNet:
         self.forest_train_out = [0]*cluster_size
         self.forest_test_out = [0]*cluster_size
         self.iteration = iteration
+        self.thread_core = thread_core
         pass
 
     #累加更新树值
@@ -98,6 +113,28 @@ class ForestNet:
         except Exception, ex:
             print ex
 
+
+    def thread_tree_model(self, x_temp, y_temp, x_test_temp, current_train_predict, current_test_predict):
+        index = [t for t in xrange(self.forest_num)]
+        def run_model(i):
+            y = np.array(y_temp)[:,i]
+            #用开源sklearn 工具 建立回归树
+            clf = tree.DecisionTreeRegressor(max_depth=3)
+            clf.fit(x_temp, y)
+            predict_train_value = clf.predict(x_temp)
+            #current_train_predict[i] = predict_train_value
+
+            predict_test_value = clf.predict(x_test_temp)
+            #current_test_predict[i] = predict_test_value
+            return (predict_train_value, predict_test_value)
+        pool = mp.ProcessingPool(self.thread_core)
+        temp = pool.map(run_model, index)
+        for i, value in enumerate(temp):
+            current_train_predict[i] = value[0]
+            current_test_predict[i] = value[1]
+
+
+
     #由于gbdt不存在更新参数，为了节省内存，将测试与训练合并
     #sklearn每次训练会记录所有训练数据，非常消耗内存
     def generate_forest_data(self, x_train, y_train, x_test):
@@ -152,8 +189,73 @@ class ForestNet:
     def get_test_data(self):
         return self.forest_test_out
 
+    def get_libsvm_train_data(self, x_train, y_train, x_test):
+        return self.generate_forest_libsvm_data(x_train, y_train, x_test)
 
 
+    #由于gbdt不存在更新参数，为了节省内存，将测试与训练合并
+    #sklearn每次训练会记录所有训练数据，非常消耗内存
+    def generate_forest_libsvm_data(self, x_train, y_train, x_test):
+        try:
+            tag = 0
+            #初始化隐藏层特征数据
+            if len(y_train) == 0:
+                tag = 1
+                y_train = self.y
+
+            y_train = np.array(y_train)
+            length = x_test[0].shape
+            for t in xrange(self.cluster_size):
+                #初始化训练集的x,y
+                x_temp,y_temp = x_train[t], y_train[t]
+                x_test_temp = x_test[t]
+
+
+                current_train_predict = [0]*self.forest_num # 存储forest的train临时值
+                current_test_predict = [0]*self.forest_num # 存储forest的test临时值
+
+                '''
+                #单线程
+                for i in xrange(self.forest_num):
+                    y = np.array(y_temp)[:,i]
+                    #用sklearn 工具 建立回归树
+                    clf = tree.DecisionTreeRegressor(max_depth=3)
+                    clf.fit(x_temp, y)
+                    predict_train_value = clf.predict(x_temp)
+                    current_train_predict[i] = predict_train_value
+
+                    predict_test_value = clf.predict(x_test_temp)
+                    current_test_predict[i] = predict_test_value
+
+                #多线程并行建树
+                '''
+                self.thread_tree_model(x_temp, y_temp, x_test_temp, current_train_predict, current_test_predict)
+                #pool = mp.ProcessingPool(4)
+                #pool = Pool(4)
+                #for i in xrange(self.forest_num):
+                #    current_train_predict[i], current_test_predict[i] = pool.map(out_process, (i, x_temp, y_temp, x_test_temp))
+                    #a = pool.apply_async(out_process, (i, x_temp, y_temp, x_test_temp,))
+                    #current_train_predict[i], current_test_predict[i] = pool.apply_async(out_process, (i, x_temp, y_temp, x_test_temp,))
+                #pool.close()
+                #pool.join()
+                #print "hi"
+                #exit()
+                #for i in xrange(self.forest_num):
+                #    current_train_predict[i] = current_train_predict[i].get()
+                #    current_test_predict[i] = current_test_predict[i].get()
+
+                #训练预测值不要随机初始化值
+                single_cluster = self.forest_train_out[t] if tag != 1 else np.zeros_like(y_temp)
+                self.forest_train_out[t] = self.update_f_value(single_cluster, current_train_predict)
+
+                if tag != 1:
+                    self.forest_test_out[t] = self.update_f_value(self.forest_test_out[t], current_test_predict)
+                else:
+                    self.forest_test_out[t] = self.learning_rate*np.transpose(np.array(current_test_predict))
+            return np.array(self.forest_train_out)
+        except Exception, ex:
+            print ex
+            raise ValueError("wrong in generate model")
 
 
 
