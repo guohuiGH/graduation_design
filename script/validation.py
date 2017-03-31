@@ -6,13 +6,14 @@ from sklearn.metrics import roc_auc_score
 from sklearn.metrics import log_loss
 from sklearn.metrics import roc_curve
 from sklearn.metrics import classification_report
-
+from sklearn.metrics import accuracy_score
 class Validation:
     def __init__(self):
         pass
 
     def calculateF1(self, y_true, y_scores):
         print classification_report(y_true, y_scores, digits = 4)
+        print "accuracy_score", accuracy_score(y_true, y_scores)
         tp = 0; fn = 0; fp = 0
 
         for i in xrange(len(y_true)):
@@ -65,10 +66,37 @@ class Validation:
     def logLoss(self, y_true, y_scores):
         print "logloss: ", log_loss(y_true, y_scores)
 
+    def top_accuacy(self, y_true, y_classifer, y_proba, index):
+        print y_true
+        print y_classifer
+        print y_proba
+        loss_predict_info = dict(); counter = 0; recoder = dict()
+        for i, value in enumerate(y_classifer):
+            if str(int(value)) == "0":
+                loss_predict_info[i] = y_proba[i]
+        print len(loss_predict_info)
+        for i, key in enumerate(sorted(loss_predict_info.items(), key=lambda x: x[1], reverse=True)):
+            if str(int(y_true[key[0]])) == "0":
+                counter+=1;
+
+            recoder[i] = counter
+
+        print "accuracy total ", len(recoder), " true number: ", counter, " rate: ", float(counter)/len(recoder)
+        for item in index:
+            print "accuracy index ", item, " true number: ", recoder[item-1], " rate: ", float(recoder[item-1])/item
+
+
     def classificationValidation(self, y_true, y_scores):
-        self.precisionRecall(y_true, y_scores)
+        self.precisionRecall(y_true, y_scores, eps=1e-6)
 
     def allValidation(self, y_true, y_scores):
-        self.precisionRecall(y_true, y_scores)
+        #self.precisionRecall(y_true, y_scores)
         self.auc(y_true, y_scores)
         self.logLoss(y_true, y_scores)
+
+if __name__=="__main__":
+    y_true = [1,0,0,0,1]
+    y_predic = [0,1,0,0,1]
+    y_pro = [0.6,0.7,0.8,0.54,0.8]
+    v = Validation()
+    v.top_accuacy(y_true, y_predic, y_pro,[2,3])

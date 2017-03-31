@@ -7,6 +7,7 @@ import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 from sklearn.ensemble import (RandomTreesEmbedding, RandomForestClassifier,GradientBoostingClassifier,GradientBoostingRegressor)
 from sklearn.metrics import f1_score, classification_report, precision_recall_curve
+from sklearn.datasets import load_svmlight_file, dump_svmlight_file
 from scipy import io
 import validation
 class Convert:
@@ -127,20 +128,51 @@ class Convert:
         clf = GradientBoostingClassifier(n_estimators=100,subsample=0.7)
         clf.fit(train_xlabel, self.train_ylabel)
         y_target = clf.predict(test_xlabel)
-        #y_target2 = clf.predict_proba(test_xlabel)
-        #target = [str(i) for i in y_target]
-        #print "\n".join(target)
+
         print classification_report(self.test_ylabel, y_target)
 
-        #v = validation.Validation()
-        #v.calculateF1(self.test_ylabel, y_target)
-        #print f1_score(self.test_ylabel, y_target)
-        #v.allValidation(self.test_ylabel,y_target2[:,1])
-        #v.logLoss(self.test_ylabel, y_target)
+    #修改训练集(201维)和测试集(132维)的数据
+    def get_libsvm_data(self):
+        file_dir_name = ["../data/20161228-1031/", "../data/20161228-1107/", "../data/1114/", "../data/1121/"]
+        path_name = ["train_data", "test_data"]
+
+        for name_path in file_dir_name:
+            #full_path_test = name_path + path_name[1] + "/combine/" + path_name[1]
+            #with open(full_path_test + ".txt") as f1, open(full_path_test + "_temp", "w+") as f2:
+            #    f2.write("\n".join([line.strip() + " 201:0" for line in f1.readlines()]))
+
+            full_path_train = name_path + path_name[0] + "/combine/" + path_name[0] + ".txt"
+            full_path_train_temp = name_path + path_name[0] + "/combine/" + path_name[0] + "_temp"
+            x_train,y_train = load_svmlight_file(full_path_train)
+            x_train = x_train[:, :132]
+            dump_svmlight_file(x_train, y_train, full_path_train_temp)
+
+
+
+    def get_libsvm_gbdt_data(self, tag="common"):
+        file_dir_name = ["../data/20161228-1031/", "../data/20161228-1107/", "../data/1114/", "../data/1121/"]
+        path_name = ["train_data", "test_data"]
+        def get_data(name):
+            x_result = list(); y_result = list()
+            for i,name_path in enumerate(file_dir_name):
+                if tag == "common":
+                    full_path = name_path + name + "/combine/" + name + "_common_132"
+                else:
+                    full_path = name_path + name + "/combine/" + name + "_recent_132"
+                (x_temp, y_temp) = load_svmlight_file(full_path)
+                x_result.append(x_temp)
+                if i == len(file_dir_name)-1:
+                    y_result = y_temp
+            return x_result, y_temp
+        x_train, y_train = get_data(path_name[0])
+        x_test, y_test = get_data(path_name[1])
+        return x_train, y_train, x_test, y_test
+
+
 if __name__ == "__main__":
     convert = Convert()
-    convert.getDTOneHotLabel()
-
+    #convert.getDTOneHotLabel()
+    convert.get_libsvm_data()
 
 
 

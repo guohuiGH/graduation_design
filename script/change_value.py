@@ -151,11 +151,11 @@ class ChangeData:
                         if 7 <= i < 14:
                             person_info.append(self.normal_log(value[i], "interaction"))
 
-                        #每天登录登出次数,用对数2为底分级最高10
+                        #每天登录登出次数,用对数2为底分级最高9
                         if 14 <= i < 21:
                             person_info.append(self.normal_log(value[i], "interaction_login"))
 
-                        #登录登出，互动时间,用对数2为底分级,最高20
+                        #登录登出，互动时间,用对数2为底分级,最高19
                         if 21 <= i < 23:
                             person_info.append(self.normal_log(value[i], "total_time"))
 
@@ -163,15 +163,15 @@ class ChangeData:
                         if i == 23:
                             person_info.append(self.normal_log(float(value[i])*1000, "rate"))
 
-                        #平均时间,用对数2为底分级,最高17
+                        #平均时间,用对数2为底分级,最高16
                         if 24 <= i < 26:
                             person_info.append(self.normal_log(value[i], "average"))
 
-                        #总的登录登出次数,用对数2为底分级,最高16
+                        #总的登录登出次数,用对数2为底分级,最高15
                         if 26 <= i < 28:
                             person_info.append(self.normal_log(value[i], "total_login"))
 
-                        #登录的比率
+                        #登录的比率,最高10
                         if i == 28:
                             person_info.append(self.normal_log(float(value[i])*100, "login_rate"))
 

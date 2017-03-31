@@ -4,16 +4,17 @@ import pandas as pd
 from matplotlib import pyplot
 
 def drawBar():
-    with open("../data/train_feature") as rf:
+    with open("../data/train/train_int_feature") as rf:
         lines = [line.strip().split("\t") for line in rf.readlines()]
     length = len(lines[0])
     for i in range(1, length):
         data = [float(line[i]) for line in lines]
         pd_data = pd.DataFrame(data)
         print "feaure " + str(i)
-        print pd_data.describe() 
+        print pd_data.describe()
         xtricks = set(data)
         ytricks = dict()
+        continue
         if len(xtricks) > 100:
             continue
         for value in data:
