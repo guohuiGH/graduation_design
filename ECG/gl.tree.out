@@ -1,0 +1,137 @@
+(4500, 140)
+(500, 140)
+3 0 0
+Iter 0, Minibatch Loss= 1.609339, Training Accuracy= 0.45089
+2 1 0
+2 1 0
+2 0 0
+2 0 0
+2 1 0
+2 0 0
+2 1 0
+2 0 0
+2 1 0
+2 0 0
+Iter 10, Minibatch Loss= 1.536392, Training Accuracy= 0.55800
+2 1 0
+2 0 0
+2 0 0
+2 1 0
+2 1 0
+1 1 0
+2 0 0
+2 1 0
+2 0 0
+2 1 0
+Iter 20, Minibatch Loss= 1.469612, Training Accuracy= 0.55844
+2 1 0
+2 0 0
+2 1 0
+2 1 0
+2 0 0
+2 1 0
+2 1 0
+1 1 0
+2 1 0
+2 0 0
+Iter 30, Minibatch Loss= 1.417967, Training Accuracy= 0.56822
+2 0 0
+2 1 0
+2 1 0
+2 0 0
+2 1 0
+2 0 0
+2 1 0
+1 1 0
+2 1 0
+1 1 0
+Iter 40, Minibatch Loss= 1.372880, Training Accuracy= 0.58600
+2 0 0
+2 1 0
+2 0 0
+2 1 0
+2 1 0
+2 1 0
+2 1 0
+1 1 0
+2 1 0
+2 0 0
+Iter 50, Minibatch Loss= 1.329641, Training Accuracy= 0.59622
+2 0 0
+2 1 0
+2 0 0
+3 0 0
+2 1 0
+2 0 0
+2 1 0
+2 1 0
+2 0 0
+2 1 0
+Iter 60, Minibatch Loss= 1.289140, Training Accuracy= 0.61600
+2 1 0
+2 1 0
+1 1 0
+2 1 0
+2 1 0
+2 1 0
+1 2 0
+1 1 0
+2 1 0
+1 1 0
+Iter 70, Minibatch Loss= 1.246804, Training Accuracy= 0.61378
+1 1 0
+2 1 0
+2 0 0
+2 1 0
+2 1 0
+2 0 0
+2 1 0
+2 1 0
+2 1 0
+2 1 0
+Iter 80, Minibatch Loss= 1.195464, Training Accuracy= 0.65489
+2 1 0
+1 1 0
+2 1 0
+1 1 0
+2 1 0
+3 0 0
+2 1 0
+2 1 0
+2 1 0
+2 0 0
+Iter 90, Minibatch Loss= 1.151355, Training Accuracy= 0.65622
+2 1 0
+2 1 0
+1 1 0
+2 1 0
+2 1 0
+1 1 0
+2 1 0
+2 1 0
+2 1 0
+Optimization Finished!
+(1, 500, 10)
+1.134991
+Testing Accuracy: 0.696
+             precision    recall  f1-score   support
+
+        1.0     0.8744    0.6678    0.7573       292
+        2.0     0.5922    0.6893    0.6371       177
+        3.0     0.0714    0.1000    0.0833        10
+        4.0     0.0667    0.1053    0.0816        19
+        5.0     0.0000    0.0000    0.0000         2
+
+avg / total     0.7243    0.6400    0.6725       500
+
+accuracy_score 0.64
+precision:  0.667808219178
+recall:  0.874439461883
+f1:  0.757281553398
+(4500, 140)
+(500, 140)
+Optimization Finished!
+0.680120
+Testing Accuracy: 0.888
+(4500, 140)
+(500, 140)
