@@ -1,0 +1,229 @@
+(7352, 561)
+(2947, 561)
+Iter 0, Minibatch Loss= 1.797017, Training Accuracy= 0.14676
+Iter 10, Minibatch Loss= 0.442594, Training Accuracy= 0.90180
+Iter 20, Minibatch Loss= 0.439990, Training Accuracy= 0.90098
+Iter 30, Minibatch Loss= 0.444199, Training Accuracy= 0.90384
+Iter 40, Minibatch Loss= 0.416323, Training Accuracy= 0.90588
+Iter 50, Minibatch Loss= 0.385227, Training Accuracy= 0.90356
+Iter 60, Minibatch Loss= 0.388078, Training Accuracy= 0.90832
+Iter 70, Minibatch Loss= 0.411038, Training Accuracy= 0.90941
+Iter 80, Minibatch Loss= 0.383276, Training Accuracy= 0.90819
+Iter 90, Minibatch Loss= 0.405617, Training Accuracy= 0.91390
+128.205015237
+Optimization Finished!
+1.195346
+Testing Accuracy: 0.780455
+(7352, 561)
+(2947, 561)
+Iter 0, Minibatch Loss= 1.791645, Training Accuracy= 0.19396
+Iter 10, Minibatch Loss= 1.244006, Training Accuracy= 0.90098
+Iter 20, Minibatch Loss= 0.863422, Training Accuracy= 0.92764
+Iter 30, Minibatch Loss= 0.612853, Training Accuracy= 0.94410
+Iter 40, Minibatch Loss= 0.452529, Training Accuracy= 0.95307
+Iter 50, Minibatch Loss= 0.349248, Training Accuracy= 0.95811
+Iter 60, Minibatch Loss= 0.277415, Training Accuracy= 0.96423
+Iter 70, Minibatch Loss= 0.232091, Training Accuracy= 0.97144
+Iter 80, Minibatch Loss= 0.198894, Training Accuracy= 0.97198
+Iter 90, Minibatch Loss= 0.175440, Training Accuracy= 0.97524
+le = 0.001, le2 = 0.2
+129.467670739
+Optimization Finished!
+0.336023
+Testing Accuracy: 0.896844
+(7352, 3)
+(2947, 3)
+Iter 0, Minibatch Loss= 1.791385, Training Accuracy= 0.17845
+Iter 10, Minibatch Loss= 1.763108, Training Accuracy= 0.28945
+Iter 20, Minibatch Loss= 1.741151, Training Accuracy= 0.30808
+Iter 30, Minibatch Loss= 1.720792, Training Accuracy= 0.32631
+Iter 40, Minibatch Loss= 1.701057, Training Accuracy= 0.33243
+Iter 50, Minibatch Loss= 1.681443, Training Accuracy= 0.35038
+Iter 60, Minibatch Loss= 1.661688, Training Accuracy= 0.35854
+Iter 70, Minibatch Loss= 1.640498, Training Accuracy= 0.37486
+Iter 80, Minibatch Loss= 1.614124, Training Accuracy= 0.38833
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/threading.py", line 801, in __bootstrap_inner
+    self.run()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/threading.py", line 754, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/pool.py", line 326, in _handle_workers
+    pool._maintain_pool()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/pool.py", line 230, in _maintain_pool
+    self._repopulate_pool()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/pool.py", line 223, in _repopulate_pool
+    w.start()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/process.py", line 130, in start
+    self._popen = Popen(self)
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/forking.py", line 124, in __init__
+    self.pid = os.fork()
+OSError: [Errno 12] Cannot allocate memory
+
+(7352, 3)
+(2947, 3)
+Iter 0, Minibatch Loss= 1.791761, Training Accuracy= 0.17777
+Iter 10, Minibatch Loss= 1.541307, Training Accuracy= 0.40071
+Iter 20, Minibatch Loss= 1.323873, Training Accuracy= 0.48980
+Iter 30, Minibatch Loss= 1.066039, Training Accuracy= 0.60922
+Iter 40, Minibatch Loss= 0.837778, Training Accuracy= 0.70797
+Iter 50, Minibatch Loss= 0.640334, Training Accuracy= 0.78264
+Iter 60, Minibatch Loss= 0.485902, Training Accuracy= 0.85038
+Iter 70, Minibatch Loss= 0.356748, Training Accuracy= 0.90547
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/threading.py", line 801, in __bootstrap_inner
+    self.run()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/threading.py", line 754, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/pool.py", line 326, in _handle_workers
+    pool._maintain_pool()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/pool.py", line 230, in _maintain_pool
+    self._repopulate_pool()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/pool.py", line 223, in _repopulate_pool
+    w.start()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/process.py", line 130, in start
+    self._popen = Popen(self)
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/forking.py", line 124, in __init__
+    self.pid = os.fork()
+OSError: [Errno 12] Cannot allocate memory
+
+(7352, 3)
+(2947, 3)
+Iter 0, Minibatch Loss= 1.791703, Training Accuracy= 0.16635
+Iter 10, Minibatch Loss= 2.444463, Training Accuracy= 0.26809
+Iter 20, Minibatch Loss= 1.939463, Training Accuracy= 0.34344
+Iter 30, Minibatch Loss= 1.816236, Training Accuracy= 0.40098
+Iter 40, Minibatch Loss= 1.841299, Training Accuracy= 0.42383
+Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/threading.py", line 801, in __bootstrap_inner
+    self.run()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/threading.py", line 754, in run
+    self.__target(*self.__args, **self.__kwargs)
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/pool.py", line 326, in _handle_workers
+    pool._maintain_pool()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/pool.py", line 230, in _maintain_pool
+    self._repopulate_pool()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/pool.py", line 223, in _repopulate_pool
+    w.start()
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/process.py", line 130, in start
+    self._popen = Popen(self)
+  File "/home/guohui/anaconda2/envs/tensorflow/lib/python2.7/site-packages/multiprocess/forking.py", line 124, in __init__
+    self.pid = os.fork()
+OSError: [Errno 12] Cannot allocate memory
+
+(7352, 561)
+(2947, 561)
+index 1 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "gbdt_lstm_human.py", line 220, in <module>
+    main()
+  File "gbdt_lstm_human.py", line 217, in main
+    train(param, model, forest_net, dataset)
+  File "gbdt_lstm_human.py", line 144, in train
+    batch_x, batch_y = generate_lstm_input(param, forest_net, dataset,redisual)
+  File "gbdt_lstm_human.py", line 126, in generate_lstm_input
+    f_batch_x = forest_net.get_libsvm_train_data(batch_x, redisual, dataset.x_test)
+  File "../tensorflow/gbdt_net.py", line 193, in get_libsvm_train_data
+    return self.generate_forest_libsvm_data(x_train, y_train, x_test)
+  File "../tensorflow/gbdt_net.py", line 258, in generate_forest_libsvm_data
+    raise ValueError("wrong in generate model")
+ValueError: wrong in generate model
+(7352, 561)
+(2947, 561)
+index 1 is out of bounds for axis 0 with size 1
+Traceback (most recent call last):
+  File "gbdt_lstm_human.py", line 220, in <module>
+    main()
+  File "gbdt_lstm_human.py", line 217, in main
+    train(param, model, forest_net, dataset)
+  File "gbdt_lstm_human.py", line 144, in train
+    batch_x, batch_y = generate_lstm_input(param, forest_net, dataset,redisual)
+  File "gbdt_lstm_human.py", line 126, in generate_lstm_input
+    f_batch_x = forest_net.get_libsvm_train_data(batch_x, redisual, dataset.x_test)
+  File "../tensorflow/gbdt_net.py", line 193, in get_libsvm_train_data
+    return self.generate_forest_libsvm_data(x_train, y_train, x_test)
+  File "../tensorflow/gbdt_net.py", line 258, in generate_forest_libsvm_data
+    raise ValueError("wrong in generate model")
+ValueError: wrong in generate model
+(7352, 561)
+(2947, 561)
+Iter 0, Minibatch Loss= 1.790813, Training Accuracy= 0.17954
+Iter 10, Minibatch Loss= 0.137465, Training Accuracy= 0.96736
+Iter 20, Minibatch Loss= 0.092074, Training Accuracy= 0.97660
+Iter 30, Minibatch Loss= 0.063225, Training Accuracy= 0.98381
+Iter 40, Minibatch Loss= 0.050146, Training Accuracy= 0.98708
+Iter 50, Minibatch Loss= 0.041890, Training Accuracy= 0.99225
+Iter 60, Minibatch Loss= 0.031382, Training Accuracy= 0.99170
+Iter 70, Minibatch Loss= 0.028324, Training Accuracy= 0.99415
+Iter 80, Minibatch Loss= 0.023004, Training Accuracy= 0.99374
+Iter 90, Minibatch Loss= 0.020782, Training Accuracy= 0.99701
+93.9722418857
+Optimization Finished!
+0.736935
+Testing Accuracy: 0.839158
+             precision    recall  f1-score   support
+
+          1     0.8198    0.9173    0.8658       496
+          2     0.8772    0.7431    0.8046       471
+          3     0.8905    0.8524    0.8710       420
+          4     0.7727    0.7617    0.7672       491
+          5     0.7826    0.8120    0.7970       532
+          6     0.9297    0.9609    0.9451       537
+
+avg / total     0.8445    0.8432    0.8424      2947
+
+accuracy_score 0.8432304038
+float division by zero
+precision: 
+Traceback (most recent call last):
+  File "gbdt_lstm_human.py", line 220, in <module>
+    main()
+  File "gbdt_lstm_human.py", line 217, in main
+    train(param, model, forest_net, dataset)
+  File "gbdt_lstm_human.py", line 203, in train
+    v.calculateF1(dataset.y_input, result)
+  File "../script/validation.py", line 36, in calculateF1
+    print "precision: ", precision
+UnboundLocalError: local variable 'precision' referenced before assignment
+(7352, 561)
+(2947, 561)
+Iter 0, Minibatch Loss= 1.791607, Training Accuracy= 0.18036
+Iter 10, Minibatch Loss= 1.101638, Training Accuracy= 0.91703
+Iter 20, Minibatch Loss= 0.745315, Training Accuracy= 0.94070
+Iter 30, Minibatch Loss= 0.529867, Training Accuracy= 0.95348
+Iter 40, Minibatch Loss= 0.391903, Training Accuracy= 0.96246
+Iter 50, Minibatch Loss= 0.308563, Training Accuracy= 0.96967
+Iter 60, Minibatch Loss= 0.242388, Training Accuracy= 0.97429
+Iter 70, Minibatch Loss= 0.205828, Training Accuracy= 0.97647
+Iter 80, Minibatch Loss= 0.175048, Training Accuracy= 0.98191
+Iter 90, Minibatch Loss= 0.151768, Training Accuracy= 0.98436
+81.424171319
+Optimization Finished!
+0.326604
+Testing Accuracy: 0.901934
+             precision    recall  f1-score   support
+
+          1     0.9041    0.9698    0.9358       496
+          2     0.8836    0.9023    0.8929       471
+          3     0.9733    0.8690    0.9182       420
+          4     0.8511    0.7800    0.8140       491
+          5     0.8129    0.8741    0.8424       532
+          6     1.0000    1.0000    1.0000       537
+
+avg / total     0.9029    0.9013    0.9010      2947
+
+accuracy_score 0.901255514082
+float division by zero
+precision: 
+Traceback (most recent call last):
+  File "gbdt_lstm_human.py", line 220, in <module>
+    main()
+  File "gbdt_lstm_human.py", line 217, in main
+    train(param, model, forest_net, dataset)
+  File "gbdt_lstm_human.py", line 203, in train
+    v.calculateF1(dataset.y_input, result)
+  File "../script/validation.py", line 36, in calculateF1
+    print "precision: ", precision
+UnboundLocalError: local variable 'precision' referenced before assignment
