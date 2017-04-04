@@ -26,7 +26,7 @@ from read_data import DataReader
 
 class InputLibsvm:
     def __init__(self):
-        reader = DataReader(1, 6)
+        reader = DataReader(187, 6)
 
         self.x_train, self.y_train = reader.read_train_human('./train/')
         self.x_test, self.y_test = reader.read_test_human("./test/")
@@ -37,14 +37,14 @@ class LstmParam:
     def __init__(self,dataset):
 
         # Parameters
-        self.learning_rate = 0.2 # lstm learning rate
+        self.learning_rate = 0.05 # lstm learning rate
         self.training_iters = 100  # iteation, or forest size
         self.batch_size = dataset.x_train[0].shape[0]  # forest-net train number, input size
         self.display_step = 10   # show size
 
         # Network Parameters
-        self.n_input = 150 # feature number
-        self.n_steps = 1
+        self.n_input = 100 # feature number
+        self.n_steps = 187
         self.n_hidden = 100 # hidden layer num of features
         self.n_classes = 6 # MNIST total classes (0-9 digits)
         self.forget_bias = 0.0 # forget bias value
@@ -53,10 +53,10 @@ class LstmParam:
         self.f_learning_rate = 0.001 # forestnet learning rate
         self.f_number = self.n_input # single forestnet size --> or self.n_input
         self.f_steps = self.n_steps # forestnet cluster size --> or self_n_steps
-        self.f_input = 561 # input feature number
+        self.f_input = 3 # input feature number
         self.thread_core = 4 # number of thread_core
         self.step = -150000
-
+        print(self.learning_rate)
 class LstmModel:
     def __init__(self, param):
 
@@ -89,7 +89,7 @@ class LstmModel:
         #lstm_cell = rnn_cell.LSTMCell(self.param.n_hidden, forget_bias=self.param.forget_bias, activation=tf.nn.relu)
         lstm_cell = rnn_cell.BasicLSTMCell(self.param.n_hidden, forget_bias=self.param.forget_bias)
         lstm_cell = rnn_cell.DropoutWrapper(lstm_cell, input_keep_prob=0.5, output_keep_prob=0.5)
-        #cell = rnn_cell.MultiRNNCell([lstm_cell] * 2)
+        #cell = rnn_cell.MultiRNNCell([lstm_cell] )
         # Get lstm cell output
         outputs, states = tf.nn.rnn(lstm_cell, self.x, dtype=tf.float32)
         #activate function
