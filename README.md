@@ -1,6 +1,6 @@
 # graduation_design
-
-#guohui
+#author:guohui
+#mail:guohui1029@foxmail.com
 
 #数据集准备
 #下载数据集wafer，star数据集在ucr http://www.cs.ucr.edu/~eamonn/time_series_data/
