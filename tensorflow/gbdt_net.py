@@ -9,8 +9,8 @@ import pathos.multiprocessing as mp
 
 def out_process(i, x_temp, y_temp, x_test_temp):
     y = np.array(y_temp)[:,i]
-    #用sklearn 工具 建立回归树
-    clf = tree.DecisionTreeRegressor(max_depth=3)
+    #为了提升速度，用sklearn 开源工具 建立回归树
+    clf = tree.DecisionTreeRegressor(max_depth=2)
     clf.fit(x_temp, y)
     predict_train_value = clf.predict(x_temp)
 
