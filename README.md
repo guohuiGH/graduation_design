@@ -37,9 +37,25 @@ pip install -U scikit-learn
 source deactivate tensorflow
 
 #使用说明，以huamn，wafer为例
-#在human目录下已经有了训练数据集(train)和测试集（test）,gbdt_lstm_human.py为gbdt+lstm模型,lstm.py,gbdt_human.py为单独的gbdt和human模型，这三个模型都会通过script/目录下的read_data.py读取数据
-#在wafer目录下数据集和测试集在同级目录UCR_TS_Archive_2015，里面， wafer.py为gbdt+lstm模型，lstm_wafer.py, gbdt_wafer.py为单独的模型，这三个模型都会通过script/目录下的read_data.py读取数据
+#先激活环境 
+source activate tensorflow
+#在human目录下已经有了训练数据集(train)和测试集（test）,
+  #human/gbdt_lstm_human.py为gbdt+lstm模型;
+  #huam/lstm.py,human/gbdt_human.py为单独的gbdt和human模型;
+  #三个模型都会通过script/目录下的read_data.py读取数据.
+#在wafer目录下数据集和测试集在同级目录UCR_TS_Archive_2015，里面， 
+  #wafer/wafer.py为gbdt+lstm模型;
+  #wafer/lstm_wafer.py, wafer/gbdt_wafer.py为单独的模型；
+  #三个模型也都会通过script/目录下的read_data.py读取数据
 #向read_data传入的参数主要是文件目录，输入的时间长度，分类的类别。
-#gbdt+lstm新模型会关联到script/gbdt_net.py(用于生成森林层),script/validation.py（评价结果）
+#gbdt+lstm新模型会关联到tensorflow/gbdt_net.py(用于生成森林层),script/validation.py（评价结果）
 
+#相关文件使用说明
+#tensorflow/gbdt_lstm_libsvm.py :手写数据集训练模型,在确定数据
+#tensorflow/gpu_gbdt_lstm_libsvm.py：gpu版的手写数据集，需要改变训练环境(使用GPU训练时间能大幅度下降)
+#tensorflow/lstm_gbdt_feature.py: 用gbdt先生成0，1特征成，再放入到lstm训练，不是端到端的模型（实际效果比gbdt+lstm端到端的模型差）
+#tensorlfow/gbdt_net.py: 用于生成训练的森林层网络
+#tensorflow/lstm_libsvm_example.py: 单独lstm网络的手写数据集的训练模型
+#script/read_data.py: 用于读取文件，并进行相关的预处理
+#script/validation.py: 用于评价模型预测的结果
 
