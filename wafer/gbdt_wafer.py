@@ -27,13 +27,13 @@ class GBDT:
     def get_result(self, predict_classifier, predict_probability):
         v = Validation()
         v.calculateF1(self.y_test, predict_classifier)
-        #v.allValidation(self.y_test, predict_probability)
+        v.allValidation(self.y_test, predict_probability)
         #v.top_accuacy(self.y_test, predict_classifier, predict_probability,[1000,10000,50000,100000])
 
     def XGBC(self):
         print "\n" + "*"*20 + "XGBOOST" + "*"*20 + "\n"
         #clf_xgb = XGBClassifier(max_depth=6, learning_rate=0.0125, n_estimators=300, subsample=0.6, colsample_bytree=0.5,seed=4)
-        clf_xgb = XGBClassifier(max_depth=3, n_estimators=90, learning_rate=0.001)
+        clf_xgb = XGBClassifier(max_depth=3, n_estimators=100, learning_rate=0.01, subsample=1, colsample_bytree=1)
         clf_xgb.fit(self.x_train, self.y_train)
         predict_classifier = clf_xgb.predict(self.x_test)
         predict_probability = clf_xgb.predict_proba(self.x_test)[:,0]
@@ -41,7 +41,7 @@ class GBDT:
 
     def GBC(self):
         print "\n" + "*"*20 + "NORMAL_GBDT" + "*"*20 + "\n"
-        clf_gb = GradientBoostingClassifier(n_estimators=150, max_depth=4, learning_rate=0.1)
+        clf_gb = GradientBoostingClassifier(n_estimators=100, max_depth=1, learning_rate=1,random_state=0)
         clf_gb.fit(self.x_train, self.y_train)
         #self.x_test = self.x_test.toarray()
         predict_classifier = clf_gb.predict(self.x_test)
@@ -99,11 +99,12 @@ class GBDT:
     #libsvm 数据格式的数据，新的数据
     def get_libsvm_data(self):
         reader = DataReader()
-        #self.x_train, self.y_train = reader.temp_read_train_data('../UCR_TS_Archive_2015/ECG5000/ECG5000_TEST')
-        #self.x_test, self.y_test = reader.temp_read_test_data('../UCR_TS_Archive_2015/ECG5000/ECG5000_TRAIN')
-
-        self.x_train, self.y_train = reader.temp_read_train_human('../human/train/')
-        self.x_test, self.y_test = reader.temp_read_test_human("../human/test/")
+        self.x_train, self.y_train = reader.temp_read_train_data('../UCR_TS_Archive_2015/wafer/wafer_TRAIN2')
+        self.x_test, self.y_test = reader.temp_read_test_data('../UCR_TS_Archive_2015/wafer/wafer_TEST2')
+        self.y_train = self.y_train - 1
+        self.y_test = self.y_test - 1
+        #self.x_train, self.y_train = reader.temp_read_train_human('../human/train/')
+        #self.x_test, self.y_test = reader.temp_read_test_human("../human/test/")
 
         #self.x_train, self.y_train = load_svmlight_file("../data/1121/train_data/combine/train_data_temp")
         #self.x_test, self.y_test = load_svmlight_file("../data/1121/test_data/combine/test_data.txt")
